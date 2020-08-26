@@ -1,0 +1,22 @@
+version: '3.2'
+services:
+  server:
+    build:
+      context: ../
+      dockerfile: ./build/Dockerfile
+      args:
+        project: ./cmd/server/
+    ports:
+    - 8080:8080
+    environment:
+    - DB_SERVICE_HOST=db
+    - DB_SERVICE_PORT=26257
+    depends_on:
+    - db
+  db:
+      image: cockroachdb/cockroach:latest
+      volumes:
+          - ./data/db:/cockroach/cockroach-data
+      command: start-single-node --insecure
+      ports:
+          - "8082:8080"
