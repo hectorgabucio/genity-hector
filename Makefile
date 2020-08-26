@@ -9,6 +9,11 @@ start:
 mocks: 
 	mockery -all -recursive -output ./test/mocks
 
+## Runs any unit tests defined for the server, if they exist.
+.PHONY: test
+test:
+	go test -race -v ./...
+
 ## Removes volumes and all containers
 .PHONY: clean
 clean: 
