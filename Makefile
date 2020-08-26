@@ -4,6 +4,11 @@
 start:
 	docker-compose -f deployments/docker-compose.yml up --build
 
+## Autogenerates mocks
+.PHONY: mocks
+mocks: 
+	mockery -all -recursive -output ./test/mocks
+
 ## Removes volumes and all containers
 .PHONY: clean
 clean: 
